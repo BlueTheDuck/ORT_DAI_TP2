@@ -53,17 +53,41 @@ public class MainActivity extends AppCompatActivity {
 
         button = (ImageButton) view;
 
-        switch (button.getId()) {
-            case R.id.tile0:
-                flipTile(0);
-                break;
+        /*
+        0 1 2
+        3 4 5
+        6 7 8
+        */
+        int idx = btnIdToIdx(button.getId()); // Transform ID to this.images's index
+        /*
+        * This arrays declares which tiles should be flipped depending
+        *  on the one clicked by the users
+        *
+        *  ! The 4 is not defined 'cause it should always be flipped, so it's hardcoded bellow
+        *  ! Due to the hardcoded flipTile(4), clicking the center flips the 4th tile 2 times.
+        *   To prevent this, when clicking it, it is declared in flipActions to flip itself again,
+        *   making it a triple flip, so it lands on the opposite side it started
+        * */
+        int[][] flipActions = {
+                {1,3},    // 0
+                {0,2},    // 1
+                {1,5},    // 2
+                {0,6},    // 3
+                {1,3,5,7,4},    // 4
+                {8,2},    // 5
+                {7,3},    // 6
+                {8,6},    // 7
+                {7,5},    // 8
+        };
 
-            default:
-                break;
+        flipTile(idx);
+        for (int i=0;i<flipActions[idx].length;i++) {
+            flipTile(flipActions[idx][i]);
         }
+        flipTile(4);
     }
 
-    private void fliptTile(int idx) {
+    private void flipTile(int idx) {
         Drawable.ConstantState buttonState, vimState;
 
         buttonState = this.images[idx].getDrawable().getConstantState();
@@ -81,5 +105,13 @@ public class MainActivity extends AppCompatActivity {
         } else {
             this.images[idx].setImageResource(R.drawable.emacs);
         }
+    }
+    private int btnIdToIdx(int id) {
+        for(int i=0;i<9;i++) {
+            if(this.images[i].getId()==id) {
+                return i;
+            }
+        }
+        return -1;
     }
 }
