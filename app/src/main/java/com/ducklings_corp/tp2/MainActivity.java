@@ -8,11 +8,13 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
 import java.util.Random;
 
 public class MainActivity extends AppCompatActivity {
     private ImageButton[] images = new ImageButton[9];
+    private int movements = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
         } while (flipped == 0 || flipped == 9);
     }
 
-    public void switchTile(View view) {
+    public void switchTiles(View view) {
         ImageButton button;
 
         button = (ImageButton) view;
@@ -85,6 +87,12 @@ public class MainActivity extends AppCompatActivity {
             flipTile(flipActions[idx][i]);
         }
         flipTile(4);
+
+        movements++;
+
+        if(won()) {
+            Toast.makeText(this,"Ganaste!",Toast.LENGTH_LONG).show();
+        }
     }
 
     private void flipTile(int idx) {
@@ -113,5 +121,20 @@ public class MainActivity extends AppCompatActivity {
             }
         }
         return -1;
+    }
+
+    private boolean won() {
+        Drawable.ConstantState buttonState, vimState;
+
+        vimState = ContextCompat.getDrawable(this,R.drawable.vim).getConstantState();
+
+        int trues = 0;
+        for(int i=0;i<9;i++) {
+            buttonState = this.images[i].getDrawable().getConstantState();
+            if(buttonState==vimState) {
+                trues++;
+            }
+        }
+        return trues==0 || trues==9;
     }
 }
