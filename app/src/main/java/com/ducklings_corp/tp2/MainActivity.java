@@ -1,5 +1,6 @@
 package com.ducklings_corp.tp2;
 
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.media.Image;
 import android.support.v4.content.ContextCompat;
@@ -107,6 +108,10 @@ public class MainActivity extends AppCompatActivity {
 
         if (won()) {
             Toast.makeText(this, "Ganaste!", Toast.LENGTH_LONG).show();
+
+            Intent intent;
+            intent = new Intent();
+
         }
     }
 
