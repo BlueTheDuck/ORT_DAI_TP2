@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -17,8 +18,8 @@ import java.util.Random;
 public class MainActivity extends AppCompatActivity {
     private ImageButton[] images = new ImageButton[9];
     private int movements = 0;
-    private int firstRandom=0;
-    private int secondRandom=0;
+    private int firstRandom = 0;
+    private int secondRandom = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,13 +56,13 @@ public class MainActivity extends AppCompatActivity {
 
         TextView txtrandom;
         Random Rgn;
-        Rgn=new Random();
+        Rgn = new Random();
 
-        firstRandom= Rgn.nextInt(10);
-        secondRandom= Rgn.nextInt(10);
+        firstRandom = Rgn.nextInt(10);
+        secondRandom = Rgn.nextInt(10);
 
-        txtrandom= findViewById(R.id.random);
-        txtrandom.setText(firstRandom+"+"+secondRandom);
+        txtrandom = findViewById(R.id.random);
+        txtrandom.setText(firstRandom + "+" + secondRandom);
     }
 
     public void switchTiles(View view) {
@@ -76,36 +77,36 @@ public class MainActivity extends AppCompatActivity {
         */
         int idx = btnIdToIdx(button.getId()); // Transform ID to this.images's index
         /*
-        * This arrays declares which tiles should be flipped depending
-        *  on the one clicked by the users
-        *
-        *  ! The 4 is not defined 'cause it should always be flipped, so it's hardcoded bellow
-        *  ! Due to the hardcoded flipTile(4), clicking the center flips the 4th tile 2 times.
-        *   To prevent this, when clicking it, it is declared in flipActions to flip itself again,
-        *   making it a triple flip, so it lands on the opposite side it started
-        * */
+         * This arrays declares which tiles should be flipped depending
+         *  on the one clicked by the users
+         *
+         *  ! The 4 is not defined 'cause it should always be flipped, so it's hardcoded bellow
+         *  ! Due to the hardcoded flipTile(4), clicking the center flips the 4th tile 2 times.
+         *   To prevent this, when clicking it, it is declared in flipActions to flip itself again,
+         *   making it a triple flip, so it lands on the opposite side it started
+         * */
         int[][] flipActions = {
-                {1,3},    // 0
-                {0,2},    // 1
-                {1,5},    // 2
-                {0,6},    // 3
-                {1,3,5,7,4},    // 4
-                {8,2},    // 5
-                {7,3},    // 6
-                {8,6},    // 7
-                {7,5},    // 8
+                {1, 3},    // 0
+                {0, 2},    // 1
+                {1, 5},    // 2
+                {0, 6},    // 3
+                {1, 3, 5, 7, 4},    // 4
+                {8, 2},    // 5
+                {7, 3},    // 6
+                {8, 6},    // 7
+                {7, 5},    // 8
         };
 
         flipTile(idx);
-        for (int i=0;i<flipActions[idx].length;i++) {
+        for (int i = 0; i < flipActions[idx].length; i++) {
             flipTile(flipActions[idx][i]);
         }
         flipTile(4);
 
         movements++;
 
-        if(won()) {
-            Toast.makeText(this,"Ganaste!",Toast.LENGTH_LONG).show();
+        if (won()) {
+            Toast.makeText(this, "Ganaste!", Toast.LENGTH_LONG).show();
         }
     }
 
@@ -113,14 +114,15 @@ public class MainActivity extends AppCompatActivity {
         Drawable.ConstantState buttonState, vimState;
 
         buttonState = this.images[idx].getDrawable().getConstantState();
-        vimState = ContextCompat.getDrawable(this,R.drawable.vim).getConstantState();
+        vimState = ContextCompat.getDrawable(this, R.drawable.vim).getConstantState();
 
-        if(buttonState==vimState) {
-            flipTile(idx,false);
+        if (buttonState == vimState) {
+            flipTile(idx, false);
         } else {
-            flipTile(idx,true);
+            flipTile(idx, true);
         }
     }
+
     private void flipTile(int idx, boolean side) {
         if (side) {
             this.images[idx].setImageResource(R.drawable.vim);
@@ -128,9 +130,10 @@ public class MainActivity extends AppCompatActivity {
             this.images[idx].setImageResource(R.drawable.emacs);
         }
     }
+
     private int btnIdToIdx(int id) {
-        for(int i=0;i<9;i++) {
-            if(this.images[i].getId()==id) {
+        for (int i = 0; i < 9; i++) {
+            if (this.images[i].getId() == id) {
                 return i;
             }
         }
@@ -140,27 +143,32 @@ public class MainActivity extends AppCompatActivity {
     private boolean won() {
         Drawable.ConstantState buttonState, vimState;
 
-        vimState = ContextCompat.getDrawable(this,R.drawable.vim).getConstantState();
+        vimState = ContextCompat.getDrawable(this, R.drawable.vim).getConstantState();
 
         int trues = 0;
-        for(int i=0;i<9;i++) {
+        for (int i = 0; i < 9; i++) {
             buttonState = this.images[i].getDrawable().getConstantState();
-            if(buttonState==vimState) {
+            if (buttonState == vimState) {
                 trues++;
             }
         }
-        return trues==0 || trues==9;
+        return trues == 0 || trues == 9;
     }
 
-    private void Checkchaptcha(View view){
+    public void Checkchaptcha(View view) {
         EditText editRandom;
         int convertedRandom;
+        LinearLayout tiles, captcha;
 
-    editRandom=findViewById(R.id.captcha);
+        editRandom = findViewById(R.id.captcha);
 
-        convertedRandom=Integer.parseInt(editRandom.getText().toString());
-        if(convertedRandom==firstRandom+secondRandom){
+        convertedRandom = Integer.parseInt(editRandom.getText().toString());
+        if (convertedRandom == firstRandom + secondRandom) {
+            tiles = findViewById(R.id.buttoninvisible);
+            captcha = findViewById(R.id.captchaLayout);
 
+            tiles.setVisibility(View.VISIBLE);
+            captcha.setVisibility(View.INVISIBLE);
         }
     }
 }
