@@ -5,88 +5,96 @@
     android:orientation="vertical"
     xmlns:android="http://schemas.android.com/apk/res/android">
     <LinearLayout
+        android:id="@+id/buttoninvisible"
+        android:orientation="vertical"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_margin="10dp">
-        <ImageButton
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:background="#FF0000"
-            android:layout_margin="10dp"
-            android:id="@+id/tile0"
-            android:onClick="switchTiles"/>
-        <ImageButton
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:background="#FF0000"
-            android:layout_margin="10dp"
-            android:id="@+id/tile1"
-            android:onClick="switchTiles"/>
-        <ImageButton
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:background="#FF0000"
-            android:layout_margin="10dp"
-            android:id="@+id/tile2"
-            android:onClick="switchTiles"/>
+        android:visibility="invisible">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_margin="10dp">
+            <ImageButton
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:background="#FF0000"
+                android:layout_margin="10dp"
+                android:id="@+id/tile0"
+                android:onClick="switchTiles"/>
+            <ImageButton
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:background="#FF0000"
+                android:layout_margin="10dp"
+                android:id="@+id/tile1"
+                android:onClick="switchTiles"/>
+            <ImageButton
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:background="#FF0000"
+                android:layout_margin="10dp"
+                android:id="@+id/tile2"
+                android:onClick="switchTiles"/>
 
         </LinearLayout>
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_margin="6dp">
-        <ImageButton
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:background="#FF0000"
-            android:layout_margin="10dp"
-            android:id="@+id/tile3"
-            android:onClick="switchTiles"/>
-        <ImageButton
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:background="#FF0000"
-            android:layout_margin="10dp"
-            android:id="@+id/tile4"
-            android:onClick="switchTiles"/>
-        <ImageButton
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:background="#FF0000"
-            android:layout_margin="10dp"
-            android:id="@+id/tile5"
-            android:onClick="switchTiles"/>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_margin="6dp">
+            <ImageButton
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:background="#FF0000"
+                android:layout_margin="10dp"
+                android:id="@+id/tile3"
+                android:onClick="switchTiles"/>
+            <ImageButton
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:background="#FF0000"
+                android:layout_margin="10dp"
+                android:id="@+id/tile4"
+                android:onClick="switchTiles"/>
+            <ImageButton
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:background="#FF0000"
+                android:layout_margin="10dp"
+                android:id="@+id/tile5"
+                android:onClick="switchTiles"/>
 
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_margin="10dp">
-        <ImageButton
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:background="#FF0000"
-            android:layout_margin="10dp"
-            android:id="@+id/tile6"
-            android:onClick="switchTiles"/>
-        <ImageButton
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:background="#FF0000"
-            android:layout_margin="10dp"
-            android:id="@+id/tile7"
-            android:onClick="switchTiles"/>
-        <ImageButton
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:background="#FF0000"
-            android:layout_margin="10dp"
-            android:id="@+id/tile8"
-            android:onClick="switchTiles"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_margin="10dp">
+            <ImageButton
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:background="#FF0000"
+                android:layout_margin="10dp"
+                android:id="@+id/tile6"
+                android:onClick="switchTiles"/>
+            <ImageButton
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:background="#FF0000"
+                android:layout_margin="10dp"
+                android:id="@+id/tile7"
+                android:onClick="switchTiles"/>
+            <ImageButton
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:background="#FF0000"
+                android:layout_margin="10dp"
+                android:id="@+id/tile8"
+                android:onClick="switchTiles"/>
 
+        </LinearLayout>
     </LinearLayout>
 
     <LinearLayout
@@ -97,10 +105,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/name"/>
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/captcha"/>
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -108,6 +112,12 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="1 + 1 = "/>
+            android:text="1 + 1 = "
+            android:id="@+id/random"
+            android:textSize="14pt"/>
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/captcha"/>
     </LinearLayout>
 </LinearLayout>

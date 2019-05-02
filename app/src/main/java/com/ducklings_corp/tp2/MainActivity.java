@@ -7,7 +7,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.Random;
@@ -15,6 +17,8 @@ import java.util.Random;
 public class MainActivity extends AppCompatActivity {
     private ImageButton[] images = new ImageButton[9];
     private int movements = 0;
+    private int firstRandom=0;
+    private int secondRandom=0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +52,16 @@ public class MainActivity extends AppCompatActivity {
                 flipped += side ? 0 : 1;
             }
         } while (flipped == 0 || flipped == 9);
+
+        TextView txtrandom;
+        Random Rgn;
+        Rgn=new Random();
+
+        firstRandom= Rgn.nextInt(10);
+        secondRandom= Rgn.nextInt(10);
+
+        txtrandom= findViewById(R.id.random);
+        txtrandom.setText(firstRandom+"+"+secondRandom);
     }
 
     public void switchTiles(View view) {
@@ -136,5 +150,17 @@ public class MainActivity extends AppCompatActivity {
             }
         }
         return trues==0 || trues==9;
+    }
+
+    private void Checkchaptcha(View view){
+        EditText editRandom;
+        int convertedRandom;
+
+    editRandom=findViewById(R.id.captcha);
+
+        convertedRandom=Integer.parseInt(editRandom.getText().toString());
+        if(convertedRandom==firstRandom+secondRandom){
+
+        }
     }
 }
