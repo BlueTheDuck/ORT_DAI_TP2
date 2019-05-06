@@ -3,6 +3,7 @@ package com.ducklings_corp.tp2;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.media.Image;
+import android.os.SystemClock;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -22,7 +23,7 @@ public class MainActivity extends AppCompatActivity {
     private int movements = 0;
     private int firstRandom = 0;
     private int secondRandom = 0;
-    private HashMap<String,Integer> scoreboard;
+    private HashMap<String, Integer> scoreboard;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,6 +87,11 @@ public class MainActivity extends AppCompatActivity {
         6 7 8
         */
         int idx = btnIdToIdx(button.getId()); // Transform ID to this.images's index
+
+        switchAllTiles(idx);
+    }
+
+    private void switchAllTiles(int idx) {
         /*
          * This arrays declares which tiles should be flipped depending
          *  on the one clicked by the users
@@ -122,9 +128,9 @@ public class MainActivity extends AppCompatActivity {
             Intent intent;
 
             movementsDone = new Bundle();
-            movementsDone.putInt("movements",movements);
-            movementsDone.putSerializable("scoreboard",scoreboard);
-            intent = new Intent(MainActivity.this,scoreboard.class);
+            movementsDone.putInt("movements", movements);
+            movementsDone.putSerializable("scoreboard", scoreboard);
+            intent = new Intent(MainActivity.this, scoreboard.class);
 
             intent.putExtras(movementsDone);
             startActivity(intent);
@@ -190,6 +196,50 @@ public class MainActivity extends AppCompatActivity {
 
             tiles.setVisibility(View.VISIBLE);
             captcha.setVisibility(View.INVISIBLE);
+        }
+    }
+
+    public void smartWin(View view) {
+        Drawable.ConstantState buttonState, vimState;
+        int vims, emacs;
+
+        vimState = ContextCompat.getDrawable(this, R.drawable.vim).getConstantState();
+
+        vims = 0;
+        emacs = 0;
+
+        for (int i = 0; i < 9; i++) {
+            buttonState = this.images[i].getDrawable().getConstantState();
+            if (buttonState == vimState) {
+                vims++;
+            } else {
+                emacs++;
+            }
+        }
+
+        // Leo dijo que esto no se hace así porque el telefono se queda colgado
+        Boolean[] vimTiles;
+        while (!won()) {
+            vimTiles = new Boolean[9];
+            for (int i = 0; i < 9; i++) {
+                buttonState = this.images[i].getDrawable().getConstantState();
+                vimTiles[i] = buttonState == vimState;
+            }
+            for (int i = 0; i < 9; i++) {
+                if (vimTiles[i] && vims < emacs) {
+                    switchAllTiles(i);
+                } else if (!vimTiles[i]  && vims > emacs) {
+                    switchAllTiles(i);
+                }
+            }
+        }
+    }
+
+    public void randomWin(View view) {
+        Random rng;
+        rng = new Random();
+        while (!won()) {
+            switchAllTiles(rng.nextInt()%9);
         }
     }
 }
