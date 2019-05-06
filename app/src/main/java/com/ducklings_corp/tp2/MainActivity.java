@@ -14,6 +14,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.HashMap;
 import java.util.Random;
 
 public class MainActivity extends AppCompatActivity {
@@ -21,6 +22,7 @@ public class MainActivity extends AppCompatActivity {
     private int movements = 0;
     private int firstRandom = 0;
     private int secondRandom = 0;
+    private HashMap<String,Integer> scoreboard;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,13 +65,20 @@ public class MainActivity extends AppCompatActivity {
         secondRandom = Rgn.nextInt(10);
 
         txtrandom = findViewById(R.id.random);
-        txtrandom.setText(firstRandom + "+" + secondRandom);
+        txtrandom.setText(firstRandom + "+" + secondRandom + " = ");
+
+        try {
+            scoreboard = (HashMap<String, Integer>) this.getIntent().getExtras().getSerializable("scoreboard");
+        } catch (Exception e) {
+            scoreboard = new HashMap<>();
+        }
     }
 
     public void switchTiles(View view) {
         ImageButton button;
-
         button = (ImageButton) view;
+
+        movements++;
 
         /*
         0 1 2
@@ -109,9 +118,16 @@ public class MainActivity extends AppCompatActivity {
         if (won()) {
             Toast.makeText(this, "Ganaste!", Toast.LENGTH_LONG).show();
 
+            Bundle movementsDone;
             Intent intent;
-            intent = new Intent();
 
+            movementsDone = new Bundle();
+            movementsDone.putInt("movements",movements);
+            movementsDone.putSerializable("scoreboard",scoreboard);
+            intent = new Intent(MainActivity.this,scoreboard.class);
+
+            intent.putExtras(movementsDone);
+            startActivity(intent);
         }
     }
 
@@ -160,7 +176,7 @@ public class MainActivity extends AppCompatActivity {
         return trues == 0 || trues == 9;
     }
 
-    public void Checkchaptcha(View view) {
+    public void checkChaptcha(View view) {
         EditText editRandom;
         int convertedRandom;
         LinearLayout tiles, captcha;

@@ -118,12 +118,13 @@
 
             <EditText
                 android:id="@+id/captcha"
+                android:inputType="number"
                 android:layout_width="210dp"
                 android:layout_height="wrap_content" />
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:onClick="Checkchaptcha"
+                android:onClick="checkChaptcha"
                 android:text="Aceptar"/>
         </LinearLayout>
     </LinearLayout>
