@@ -12,26 +12,16 @@
             android:layout_height="wrap_content"
             android:textSize="18pt"
             android:text="Puntuaciones: "/>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-            <EditText
-                android:layout_width="300dp"
-                android:layout_height="wrap_content"
-                android:hint="Nombre..."
-                android:id="@+id/username"/>
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Aceptar"
-                android:onClick="submitScore"/>
-        </LinearLayout>
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Nombre: movimientos"
-            android:textSize="14pt"
+            android:text="(Nombre: Movimientos)"
+            android:textSize="8pt"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="12pt"
+            android:paddingHorizontal="5dp"
             android:id="@+id/scoreboard"/>
     </LinearLayout>
     <Button

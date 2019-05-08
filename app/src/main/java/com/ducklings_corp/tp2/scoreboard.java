@@ -11,54 +11,36 @@ import java.nio.channels.InterruptedByTimeoutException;
 import java.util.HashMap;
 
 public class scoreboard extends Activity {
-    private boolean submited = false;
-    private int score = 0;
     private HashMap<String,Integer> scoreboard;
+    private int lastPlayMovements;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_scoreboard);
 
-        submited = false;
-        score = this.getIntent().getExtras().getInt("score");
+        scoreboard = (HashMap<String, Integer>) this.getIntent().getExtras().getSerializable("scoreboard");
+        lastPlayMovements = (int) this.getIntent().getExtras().getInt("lastPlayMovements");
 
-        try {
-            scoreboard = (HashMap<String, Integer>) this.getIntent().getExtras().getSerializable("scoreboard");
-        } catch (Exception e) {
-            scoreboard = new HashMap<>();
-        }
-    }
-
-    public void submitScore(View view) {
-        if (submited) {
-            return;
-        }
-
-        EditText usernameInput;
-        String username;
         TextView scoreboardView;
-
-        usernameInput = findViewById(R.id.username);
-        username = usernameInput.getText().toString();
-
         scoreboardView = findViewById(R.id.scoreboard);
-
-        scoreboard.put(username,score);
-
         for(String k: scoreboard.keySet()) {
             scoreboardView.setText(
-                    String.format("%s\n%s: %d movimientos %n", scoreboardView.getText(), username, score)
+                    String.format("%s\n%s: %d movimientos %n", scoreboardView.getText(), k, scoreboard.get(k))
             );
         }
-
-
-        submited = true;
     }
 
     public void back(View view) {
+        Bundle data;
         Intent intent;
+
+        data = new Bundle();
+        data.putSerializable("scoreboard",this.scoreboard);
+        data.putInt("lastPlayMovements",this.lastPlayMovements);
+
         intent = new Intent(scoreboard.this,MainActivity.class);
+        intent.putExtras(data);
         startActivity(intent);
     }
 }

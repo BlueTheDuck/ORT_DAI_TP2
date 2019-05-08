@@ -95,20 +95,51 @@
                 android:onClick="switchTiles"/>
 
         </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="visible">
+            <Button
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:text="Ganar random"
+                android:onClick="randomWin"/>
+            <Button
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:text="Ganar inteligente"
+                android:onClick="smartWin"/>
+        </LinearLayout>
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
-        <EditText
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/name"/>
+            android:orientation="horizontal"
+            android:id="@+id/usernameInputLayout">
+            <EditText
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:hint="Nombre..."
+                android:id="@+id/username"
+                android:textSize="14pt"/>
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Aceptar"
+                android:onClick="acceptUsername"
+                android:textSize="8pt"/>
+        </LinearLayout>
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/captchaLayout">
+            android:id="@+id/captchaLayout"
+            android:visibility="gone">
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -119,25 +150,48 @@
             <EditText
                 android:id="@+id/captcha"
                 android:inputType="number"
-                android:layout_width="210dp"
-                android:layout_height="wrap_content" />
+                android:layout_width="195dp"
+                android:layout_height="wrap_content"
+                android:textSize="14pt"/>
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:onClick="checkChaptcha"
-                android:text="Aceptar"/>
+                android:text="Aceptar"
+                android:textSize="8pt"/>
         </LinearLayout>
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <Button
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
             android:layout_width="200dp"
             android:layout_height="wrap_content"
-            android:text="Ganar random"/>
-        <Button
+            android:text="Ultima partida: N/D"
+            android:id="@+id/lastPlayMovements"/>
+        <TextView
             android:layout_width="200dp"
             android:layout_height="wrap_content"
-            android:text="Ganar inteligente"/>
+            android:text="Esta partida: "
+            android:id="@+id/thisPlayMovements"/>
     </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/endGameScreen"
+        android:orientation="vertical"
+        android:visibility="invisible">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="PERDISTE"
+            android:textSize="20pt"/>
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Reiniciar"
+            android:onClick="restart"/>
+    </LinearLayout>
+
 </LinearLayout>
