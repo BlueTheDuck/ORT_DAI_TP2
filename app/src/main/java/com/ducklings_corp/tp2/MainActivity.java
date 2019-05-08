@@ -259,6 +259,7 @@ public class MainActivity extends AppCompatActivity {
         final Drawable.ConstantState vimState;
         Drawable.ConstantState buttonState;
         int vims, emacs;
+        final boolean swapVims;
 
         vimState = ContextCompat.getDrawable(this, R.drawable.vim).getConstantState();
 
@@ -273,6 +274,7 @@ public class MainActivity extends AppCompatActivity {
                 emacs++;
             }
         }
+        swapVims = emacs > vims;
 
 
         final Timer timer;
@@ -290,13 +292,13 @@ public class MainActivity extends AppCompatActivity {
 
                          vimTiles = new Boolean[9];
                          for (int i = 0; i < 9; i++) {
-                             buttonState = this.images[i].getDrawable().getConstantState();
+                             buttonState = images[i].getDrawable().getConstantState();
                              vimTiles[i] = buttonState == vimState;
                          }
                          for (int i = 0; i < 9; i++) {
-                             if (vimTiles[i] && vims < emacs) {
+                             if (vimTiles[i] && swapVims) {
                                  switchSurroundingTiles(i);
-                             } else if (!vimTiles[i] && vims > emacs) {
+                             } else if (!vimTiles[i] && !swapVims) {
                                  switchSurroundingTiles(i);
                              }
                          }
@@ -309,7 +311,8 @@ public class MainActivity extends AppCompatActivity {
                      }
                  });
              }
-         }
+         };
+        timer.schedule(timedTask, 0, 500);
     }
 
     public void randomWin(View view) {
